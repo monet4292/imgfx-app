@@ -41,7 +41,7 @@ export class Account {
      * Re-generates and updates authorization token internally
      */
     public async refreshSession() {
-        let sessionResult = await this.fetchSession();
+        const sessionResult = await this.fetchSession();
 
         if (!sessionResult || !sessionResult.access_token || !sessionResult.expires || !sessionResult.user) {
             throw new AccountError("Session response is missing some fields: \n" + JSON.stringify(sessionResult))

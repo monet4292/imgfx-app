@@ -46,9 +46,9 @@ export default function Caption() {
             // Extract type from file (e.g. image/png -> png)
             const type = selectedFile.type.split('/')[1];
 
-            // Check if type is valid
-            if (!Object.values(ImageType).includes(type as any)) {
-                throw new Error(`Unsupported image type: ${type}. Supported: ${Object.values(ImageType).join(', ')}`);
+            const validTypes = Object.values(ImageType) as string[];
+            if (!validTypes.includes(type)) {
+                throw new Error(`Unsupported image type: ${type}. Supported: ${validTypes.join(', ')}`);
             }
 
             const res = await fetch('/api/caption', {
@@ -69,8 +69,9 @@ export default function Caption() {
             }
 
             setCaptions(data.captions);
-        } catch (err: any) {
-            setError(err.message);
+        } catch (err: unknown) {
+            const message = err instanceof Error ? err.message : 'Failed to generate captions';
+            setError(message);
         } finally {
             setLoading(false);
         }
@@ -87,7 +88,7 @@ export default function Caption() {
                         Image Captioning
                     </h1>
                     <p className="text-muted-foreground">
-                        Upload an image to get a detailed description using Google's AI.
+                        Upload an image to get a detailed description using Google&apos;s AI.
                     </p>
                 </div>
 

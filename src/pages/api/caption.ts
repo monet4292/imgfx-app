@@ -58,9 +58,10 @@ export default async function handler(
         const captions = await fx.generateCaptionsFromImage(filePath, imageType, count || 1);
 
         res.status(200).json({ captions });
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error("Caption error:", error);
-        res.status(500).json({ error: error.message || 'Failed to generate captions' });
+        const message = error instanceof Error ? error.message : 'Failed to generate captions';
+        res.status(500).json({ error: message });
     } finally {
         // Cleanup temp file
         if (fs.existsSync(filePath)) {

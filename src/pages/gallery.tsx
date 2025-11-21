@@ -3,16 +3,12 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogTrigger, DialogTitle, DialogClose } from '@/components/ui/dialog';
 import { getHistory, deleteHistoryItem, clearHistory, HistoryItem } from '@/lib/history';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Head from 'next/head';
 import { Maximize2, X } from 'lucide-react';
 
 export default function Gallery() {
-    const [history, setHistory] = useState<HistoryItem[]>([]);
-
-    useEffect(() => {
-        setHistory(getHistory());
-    }, []);
+    const [history, setHistory] = useState<HistoryItem[]>(() => getHistory());
 
     const handleDelete = (id: string) => {
         const updated = deleteHistoryItem(id);

@@ -40,8 +40,9 @@ export default async function handler(
         const imageUrls = images.map(img => `data:image/png;base64,${img.encodedImage}`);
 
         res.status(200).json({ images: imageUrls });
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error("Generation error:", error);
-        res.status(500).json({ error: error.message || 'Failed to generate images' });
+        const message = error instanceof Error ? error.message : 'Failed to generate images';
+        res.status(500).json({ error: message });
     }
 }

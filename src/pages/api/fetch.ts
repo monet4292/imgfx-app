@@ -30,8 +30,9 @@ export default async function handler(
 
         // The image object has encodedImage
         res.status(200).json({ imageUrl: `data:image/png;base64,${image.encodedImage}` });
-    } catch (error: any) {
+    } catch (error: unknown) {
         console.error("Fetch error:", error);
-        res.status(500).json({ error: error.message || 'Failed to fetch image' });
+        const message = error instanceof Error ? error.message : 'Failed to fetch image';
+        res.status(500).json({ error: message });
     }
 }

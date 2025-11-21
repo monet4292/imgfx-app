@@ -59,6 +59,12 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                             >
                                 Gallery
                             </Link>
+                            <Link
+                                href="/music"
+                                className={router.pathname === '/music' ? 'text-foreground' : 'text-foreground/60 transition-colors hover:text-foreground'}
+                            >
+                                Music
+                            </Link>
                         </nav>
                     </div>
                     <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">

@@ -69,8 +69,9 @@ export default function Home() {
         model,
         images: data.images
       });
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Failed to generate images';
+      setError(message);
     } finally {
       setLoading(false);
     }
@@ -87,7 +88,7 @@ export default function Home() {
             Generate Images
           </h1>
           <p className="text-muted-foreground">
-            Create stunning visuals using Google's ImageFX models.
+            Create stunning visuals using Google&apos;s ImageFX models.
           </p>
         </div>
 

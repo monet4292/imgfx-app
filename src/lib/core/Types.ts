@@ -1,4 +1,4 @@
-import { AspectRatio, Model } from "./Constants";
+import { AspectRatio, Model, MusicModel } from "./Constants";
 
 export interface PromptArg {
     /**
@@ -69,4 +69,12 @@ export interface SessionData {
     user: User;
     expires: string;
     access_token: string;
+}
+
+export interface MusicPromptArg {
+    prompt: string;
+    generationCount?: number;
+    soundLengthSeconds?: number;
+    loop?: boolean;
+    model?: MusicModel;
 }

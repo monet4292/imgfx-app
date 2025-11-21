@@ -2,6 +2,10 @@ export const Model = Object.freeze({
     IMAGEN_3_5: "IMAGEN_3_5",
 } as const);
 
+export const MusicModel = Object.freeze({
+    DEFAULT: "DEFAULT",
+} as const);
+
 export const AspectRatio = Object.freeze({
     MOBILE_PORTRAIT_THREE_FOUR: "IMAGE_ASPECT_RATIO_PORTRAIT_THREE_FOUR",
     MOBILE_LANDSCAPE_FOUR_THREE: "IMAGE_ASPECT_RATIO_LANDSCAPE_FOUR_THREE",
@@ -32,6 +36,7 @@ export const ImageType = Object.freeze({
 } as const);
 
 export type Model = typeof Model[keyof typeof Model];
+export type MusicModel = typeof MusicModel[keyof typeof MusicModel];
 export type AspectRatio = typeof AspectRatio[keyof typeof AspectRatio];
 export type ImageType = typeof ImageType[keyof typeof ImageType];
 

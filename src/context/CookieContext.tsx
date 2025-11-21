@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 interface CookieContextType {
     cookie: string;
@@ -9,16 +9,18 @@ interface CookieContextType {
 const CookieContext = createContext<CookieContextType | undefined>(undefined);
 
 export const CookieProvider = ({ children }: { children: ReactNode }) => {
-    const [cookie, setCookieState] = useState<string>('');
-    const [isConfigured, setIsConfigured] = useState(false);
-
-    useEffect(() => {
-        const storedCookie = localStorage.getItem('GOOGLE_COOKIE');
-        if (storedCookie) {
-            setCookieState(storedCookie);
-            setIsConfigured(true);
+    const [cookie, setCookieState] = useState<string>(() => {
+        if (typeof window === 'undefined') {
+            return '';
         }
-    }, []);
+        return localStorage.getItem('GOOGLE_COOKIE') ?? '';
+    });
+    const [isConfigured, setIsConfigured] = useState<boolean>(() => {
+        if (typeof window === 'undefined') {
+            return false;
+        }
+        return !!localStorage.getItem('GOOGLE_COOKIE');
+    });
 
     const setCookie = (newCookie: string) => {
         setCookieState(newCookie);
